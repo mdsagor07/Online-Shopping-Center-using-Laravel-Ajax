@@ -1,2 +1,2 @@
 # YajraDataTable
- yajra data table implementation
+ yajra data table implementation for customers details
