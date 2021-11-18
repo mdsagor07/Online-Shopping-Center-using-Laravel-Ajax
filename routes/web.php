@@ -29,7 +29,7 @@ Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('edit.user')
 
 Route::get('/anyData',[UserController::class,'anyData'])->name('anyuser');
 
-//product route
+//product route resource
 
 Route::resource('products', ProductController::class);
 

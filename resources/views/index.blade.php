@@ -70,7 +70,7 @@
                                             <ul class="navbar-nav ms-auto">
                                             <li class="nav-item "><a href="#" class="nav-link">Home </a></li>
                                             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                                            <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                                            <li class="nav-item"><a href="{{route('products.index')}}" class="nav-link">Products</a></li>
                                             <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
                                             </ul>
                                         </div>
@@ -88,7 +88,7 @@
                         Add Customer
                         
                     </button>
-                    <button> <a class="btn btn-primary " href="{{route('products.index')}}"> Products  page</a></button> 
+                  
                    
                       
                 <table class="table table-bordered table-striped" id="users-table">

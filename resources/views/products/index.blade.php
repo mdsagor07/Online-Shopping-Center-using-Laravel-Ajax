@@ -43,7 +43,7 @@
                     <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
      
                     @csrf
-                    @method('DELETE')
+                    @method('DELETE')   
         
                     <button type="submit" onclick="return confirm('Are you sure you want to delete this item')" class="btn btn-danger">Delete</button>
                 </form>
