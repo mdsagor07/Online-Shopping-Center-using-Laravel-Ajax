@@ -24,6 +24,13 @@ class User extends Authenticatable
         //'password',
     ];
 
+    public function order_invoices()
+    {
+        return $this->belongsToMany(OrderInvoice::class, 'order_invoices');
+    }
+
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -42,4 +49,7 @@ class User extends Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
+
+
+
 }

@@ -71,7 +71,7 @@
                                             <li class="nav-item "><a href="#" class="nav-link">Home </a></li>
                                             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
                                             <li class="nav-item"><a href="{{route('products.index')}}" class="nav-link">Products</a></li>
-                                            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                                            <li class="nav-item"><a href="{{url('/invoiceIndex')}}" class="nav-link">invoice</a></li>
                                             </ul>
                                         </div>
                                         </div>

@@ -41,6 +41,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
+            'price' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|',
         ]);
   
@@ -80,6 +81,8 @@ class ProductController extends Controller
     {
         return view('products.edit',compact('product'));
     }
+
+  
 
     /**
      * Update the specified resource in storage.

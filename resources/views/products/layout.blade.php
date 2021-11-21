@@ -26,6 +26,7 @@
 <div class="container">
     <div class="card">
         <h1 class="" style="text-align: center">Product Details </h1>
+        <div class="btn btn-info ms-auto" style="margin-left: 3px">Cart(0)</div>
 
     @yield('content')
 </div>

@@ -9,6 +9,12 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'detail', 'image'
+        'name', 'detail', 'image','price'
     ];
+
+    public function order_invoices()
+    {
+        return $this->belongsToMany(OrderInvoice::class, 'order_invoices');
+    }
+
 }

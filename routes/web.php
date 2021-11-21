@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,18 @@ Route::get('/anyData',[UserController::class,'anyData'])->name('anyuser');
 //product route resource
 
 Route::resource('products', ProductController::class);
+
+//create invoice route
+
+Route::get('/invoiceIndex',[InvoiceController::class,'invoiceIndex'])->name('invoiceIndex');
+Route::get('/getPDF',[InvoiceController::class,'generatePDF'])->name('generatePDF');
+Route::post('/storeinvoice',[InvoiceController::class,'invoiceStore'])->name('invoiceStore');
+Route::get('/viewinvoice',[InvoiceController::class,'invoicelist'])->name('viewinvoicelist');
+
+
+
+//Route::get('/storeinvoice1',[InvoiceController::class,'invoiceStore1'])->name('invoiceStore1');
+
 
 
 
