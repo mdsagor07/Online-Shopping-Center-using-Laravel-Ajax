@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use dompdf;
 use PDF;
-
+use session;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\OrderInvoice;
@@ -21,14 +21,7 @@ class InvoiceController extends Controller
         // dd($product);
 
         // Fetch customer
-        // $customerData['data'] =User ::orderby("name","asc")
-        // 			   ->select('id','name')
-        // 			   ->get();
-        
-        // $productData['data']==Product ::orderby("name","asc")
-        //              ->select('id','name')
-        //              ->get();    
-        //              dd($productData);           
+                
         
         return view('invoice',compact('customers','products'));
 
@@ -56,7 +49,7 @@ class InvoiceController extends Controller
 
     public function invoicelist(){
          $datas=OrderInvoice::latest()->first();
-         
+
          
        return view('createInvoice',compact('datas'));
         
@@ -64,10 +57,59 @@ class InvoiceController extends Controller
 
         
     }
-    
-    public function invoiceStore1()
+
+    public function cart()
     {
-        return view('createInvoice');
+        return view('cart');
+    }
+    
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
+          
+        $cart = session()->get('cart', []);
+  
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+          
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function update(Request $request)
+    {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+
+    public function remove(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
+    }
+
+    public function cartitem()
+    {
+        
+
     }
 
 

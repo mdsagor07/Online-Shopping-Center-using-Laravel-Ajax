@@ -41,9 +41,18 @@ Route::get('/getPDF',[InvoiceController::class,'generatePDF'])->name('generatePD
 Route::post('/storeinvoice',[InvoiceController::class,'invoiceStore'])->name('invoiceStore');
 Route::get('/viewinvoice',[InvoiceController::class,'invoicelist'])->name('viewinvoicelist');
 
+//add to cart
+Route::get('/addToCart',[InvoiceController::class,'addToCart'])->name('addToCart');
+
+Route::get('cart', [InvoiceController::class, 'cart'])->name('cart');
+
+Route::get('add-to-cart/{id}', [InvoiceController::class, 'addToCart'])->name('add.to.cart');
+
+Route::patch('update-cart', [InvoiceController::class, 'update'])->name('update.cart');
+Route::delete('remove-from-cart', [InvoiceController::class, 'remove'])->name('remove.from.cart');
 
 
-//Route::get('/storeinvoice1',[InvoiceController::class,'invoiceStore1'])->name('invoiceStore1');
+
 
 
 
