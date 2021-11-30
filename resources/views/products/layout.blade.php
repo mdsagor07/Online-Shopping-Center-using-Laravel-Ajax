@@ -2,6 +2,7 @@
 <html>
 <head>
 
+ 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
       
@@ -12,7 +13,9 @@
       URL.revokeObjectURL(output.src) // free memory
     }
   };
-//cart item count
+
+ 
+
 
 
   //details page
@@ -31,8 +34,39 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
-</head>
-<body>
+
+<style>
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+
+  
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    </style>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+  </head>
+
+  <body>
 <div class="container">
     <div class="card">
 
@@ -62,7 +96,7 @@
       
 
 
-       <h1 class="" style="text-align: center"> All Products  </h1>
+       <h1 class="" style="text-align: center">   </h1>
         <div class="pull-right">
           <a class="btn btn-primary ml-3" href="{{ route('products.create') }}"> Add New Product</a>
           

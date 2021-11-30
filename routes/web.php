@@ -51,8 +51,18 @@ Route::get('add-to-cart/{id}', [InvoiceController::class, 'addToCart'])->name('a
 Route::patch('update-cart', [InvoiceController::class, 'update'])->name('update.cart');
 Route::delete('remove-from-cart', [InvoiceController::class, 'remove'])->name('remove.from.cart');
 
+Route::get('shopping-car', [InvoiceController::class, 'shoppingCart'])->name('shopping-car');
+
+//checkout
+Route::get('cart/checkout', [InvoiceController::class, 'checkout'])->name('checkout');
+Route::post('addcart', [InvoiceController::class, 'addCart'])->name('addcart');
+
+Route::get('insertcart', [InvoiceController::class, 'insertcart'])->name('insertcart');
 
 
+Route::post('users', [InvoiceController::class, 'getusers'])->name('users');
+
+Route::post('search', [InvoiceController::class, 'search'])->name('search');
 
 
 

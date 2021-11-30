@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,8 +16,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::latest()->paginate(5);
+        $customers=User::all();
     
-        return view('products.index',compact('products'))
+        return view('products.index',compact('products','customers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -68,7 +70,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show',compact('product'));
+        $customers=User::all();
+        return view('products.show',compact('product','customers'));
     }
 
     /**
