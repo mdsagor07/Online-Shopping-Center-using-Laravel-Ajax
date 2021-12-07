@@ -5,24 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cart extends Model
+class order_info extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'product_id', 'order_id','price','qty','subtotal'
+        'user_id', 'order_id', 'order_value'
     ];
+    public $timestamps = false;
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function cart()
+    {
+        return $this->belongsTo(cart::class);
     }
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function order_infos()
-    {
-        return $this->belongsTo(order_infos::class);
-    }
+
 
 }

@@ -87,6 +87,8 @@
               <li class="nav-item "><a href="{{ route('users') }}"class="nav-link">Home </a></li>
               <li class="nav-item"><a href="#" class="nav-link">About</a></li>
               <li class="nav-item"><a href="{{route('products.index')}}" class="nav-link">Products</a></li>
+              <li class="nav-item"><a href="{{route('order_details')}}" class="nav-link">order page</a></li>
+
               <li class="nav-item"><a href="{{url('/invoiceIndex')}}" class="nav-link">invoice</a></li>
               <button class="btn btn-secondary mr-3 pull-right" style="float: right;" ><a href="{{route('cart')}}">Cart({{ count((array) session('cart')) }})</a></button>
               </ul>

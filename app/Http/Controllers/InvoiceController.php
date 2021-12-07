@@ -8,6 +8,7 @@ use PDF;
 use Session;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\order_info;
 use App\Models\OrderInvoice;
 use App\Models\cart;
 
@@ -49,22 +50,56 @@ class InvoiceController extends Controller
         return redirect(route('viewinvoicelist'));
     }
 
-    public function addCart(Request $request){
+    public function addCart(Request $request)
+    {
 
+
+
+        
         $product_id=$request->input('product_id');
         $user_id=$request->input('user_id');
         $price=$request->input('price');
         $product_qty=$request->input('product_qty');
 
-        $cartItem=new Cart();
-        $cartItem->user_id	=$user_id;
-        $cartItem->price=$price;
-        $cartItem->product_id =$product_id;
-        $cartItem->qty =$product_qty;
-        $cartItem->subtotal=$price*$product_qty;
-        $cartItem->save();
+           $latestOrder = order_info::orderBy('id', 'DESC')->first();
+        
+            if($latestOrder)
+            {
+                
+            $last_order_id=$latestOrder->order_id;
+            $outputString = preg_replace('/[^0-9]/', '', $last_order_id);  
 
-        return redirect('/products')->with('success', 'order added successfully !');
+            $order_id = 'OR-'.str_pad($outputString +1, 8, "0", STR_PAD_LEFT);
+            }
+            else
+            {
+                $order_id = 'OR-'.str_pad( 1, 8, "0", STR_PAD_LEFT);
+            }
+
+
+        
+
+
+            $cartItem=new Cart();
+            $cartItem->user_id	=$user_id;
+            $cartItem->price=$price;
+            $cartItem->product_id =$product_id;
+            $cartItem->qty =$product_qty;
+            $cartItem->subtotal=$price*$product_qty;
+            $cartItem->order_id=$order_id;
+            $cartItem->save();
+
+            
+            $order_info=new order_info;
+
+            $order_info->user_id =$user_id;
+            $order_info->order_id =$order_id;
+
+            $order_info->order_value =$price*$product_qty;
+
+            $order_info->save();
+
+            return redirect()->url('/products');
 
     }
 
@@ -152,16 +187,81 @@ class InvoiceController extends Controller
         return view('checkout',compact('carts'));
     }
 
+    public function ordersummary($order_id)
+    {
+        //dd($order_id);
+       $order_summary=cart::where('order_id',$order_id)->get();
+
+       $grandtotal=cart::where('order_id',$order_id)->sum('subtotal');
+       //dd($grandtotal);
+
+      $order_id_frist=cart::where('order_id',$order_id)->first();
+       
+      $order=$order_id_frist->order_id;
+      $user=$order_id_frist->user_id;
+      $user_name=User::where('id',$user)->first();
+      $username=$user_name->name;
+      $userphone=$user_name->phone;
+
+     
+     
+     
+     
+       return view('ordersummary',compact('order_summary','order','username','grandtotal','userphone'));
+
+    }
+   
+  
+
     public function insertcart(Request $request)
     {
        
-        
-        $userid=session::get('user_id');
-        $content=session()->get('cart');
-        
-       //dd($content);
-       
+        $this->validate($request,[
+            'user_id' => 'required'
+         ]);
 
+        
+        // dd($request->all());
+        
+        $content=session()->get('cart');
+        $userid = $request->user_id;
+       
+        $latestOrder = order_info::orderBy('id', 'DESC')->first();
+
+       
+        if($latestOrder)
+        {
+            
+        $last_order_id=$latestOrder->order_id;
+        $outputString = preg_replace('/[^0-9]/', '', $last_order_id);  
+
+        $order_id = 'OR-'.str_pad($outputString +1, 8, "0", STR_PAD_LEFT);
+        }
+        else
+        {
+            $order_id = 'OR-'.str_pad( 1, 8, "0", STR_PAD_LEFT);
+        }
+
+      
+
+
+        
+        $order_value=0;
+        $arr=[];
+       
+        foreach($content as $items)
+        {
+            $order_value+= $items['price']*$items['quantity'];
+            
+        }
+        
+        $arr['order_id']=$order_id ;
+        $arr['user_id']=$userid ;
+        $arr['order_value']=$order_value ;
+        
+        order_info::insert($arr);
+
+        
        $newarr=[];
        foreach ($content as  $items){
 
@@ -169,18 +269,29 @@ class InvoiceController extends Controller
         
         $items["qty"] = $items['quantity'];
         $items["user_id"] = $userid;
+        $items["order_id"] = $order_id;
         $items["subtotal"] =$items["qty"]*$items["price"];
 
         unset($items["quantity"]);
 
         array_push($newarr, $items);
 
-       }
+       } 
+       
        cart::insert($newarr);
+    
        Session::forget('cart');
-     //dd($newarr);
-     return redirect('/products')->with('success', 'order added successfully !');
-     
+       return redirect('/products')->with('success', 'order added successfully !');
+          
+    }
+
+
+    public function order_details(Request $request)
+    {
+
+
+
+        return view('orderdetails');
     }
 
 

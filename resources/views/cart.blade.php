@@ -1,7 +1,8 @@
 @extends('products.layout')
 @section('content')
 
-
+<form method="POST" action="{{route('insertcart')}}">
+    @csrf
 <table id="cart" class=" table table-hover table-condensed">
 
     
@@ -10,6 +11,12 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+    
+        <ul >
+           @foreach ($errors->all() as $error)
+              <p class = "alert alert-danger">{{ $error }}</p>
+           @endforeach
+        </ul>
     
 
     <thead>
@@ -25,10 +32,10 @@
 
          <div class="form-group">
             
-            <select class="form-control customer_id js-example-basic-single" name="user_id">
+            <select class="form-control customer_id js-example-basic-single" name="user_id" required>
               <option  disabled selected>Select customer</option> 
                @foreach(App\Models\User::all(); as $customer)
-                <option value="{{$customer->id}}" {{ Session::put('user_id', $customer->id)}}>{{ $customer->name }}</option>
+                <option value="{{$customer->id}}" >{{ $customer->name }}</option>
                 @endforeach   
             </select>
         </div>  
@@ -90,11 +97,12 @@
                 
 
                 {{-- <button class="cartadd btn btn-success"> Checkout</button> --}}
-                <button class=" btn btn-success"><a href="{{route('insertcart')}}">Checkout</a>  </button>
+                <button class=" btn btn-success" type="submit">Checkout  </button>
             </td>
         </tr>
     </tfoot>
 </table>
+</form>
 @endsection]
 
 @section('script')

@@ -57,12 +57,16 @@ Route::get('shopping-car', [InvoiceController::class, 'shoppingCart'])->name('sh
 Route::get('cart/checkout', [InvoiceController::class, 'checkout'])->name('checkout');
 Route::post('addcart', [InvoiceController::class, 'addCart'])->name('addcart');
 
-Route::get('insertcart', [InvoiceController::class, 'insertcart'])->name('insertcart');
+Route::post('insertcart', [InvoiceController::class, 'insertcart'])->name('insertcart');
+Route::get('order_details', [InvoiceController::class, 'order_details'])->name('order_details');
+
 
 
 Route::post('users', [InvoiceController::class, 'getusers'])->name('users');
 
 Route::post('search', [InvoiceController::class, 'search'])->name('search');
+Route::get('summary/{order_id}', [InvoiceController::class, 'ordersummary'])->name('summary');
+
 
 
 
