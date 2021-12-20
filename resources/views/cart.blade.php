@@ -110,6 +110,7 @@
 
 
     $('.js-example-basic-single').select2();
+    
     // $('.js-data-example-ajax').select2({
 //   ajax: {
 //     url: 'https://api.github.com/search/repositories',

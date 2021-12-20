@@ -4,7 +4,11 @@
 
  
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+
+      
     <script>
+     
       
     var loadFile = function(event) {
     var output = document.getElementById('output');
@@ -32,8 +36,10 @@
 
     <title> Product Details   </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <style>
     #customers {
@@ -63,7 +69,29 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="/js/validate.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
+  <script>
+        @if (Session::has('success'))
+        toastr.success("{{Session::get('success')}}")
+        {{-- expr --}}
+        @endif
+        @if (Session::has('warning'))
+        toastr.info("{{Session::get('info')}}")
+        {{-- expr --}}
+        @endif
+        @if (Session::has('error'))
+        toastr.error("{{Session::get('error')}}")
+        {{-- expr --}}
+        @endif
+    </script>
   </head>
 
   <body>
@@ -88,6 +116,9 @@
               <li class="nav-item"><a href="#" class="nav-link">About</a></li>
               <li class="nav-item"><a href="{{route('products.index')}}" class="nav-link">Products</a></li>
               <li class="nav-item"><a href="{{route('order_details')}}" class="nav-link">order page</a></li>
+              <li class="nav-item"><a href="{{route('index')}}" class="nav-link">Add supplier</a></li>
+              <li class="nav-item"><a href="{{route('supplier.order')}}" class="nav-link"> New Purchase</a></li>
+              <li class="nav-item"><a href="{{route('supplier.order_details')}}" class="nav-link">Purchases</a></li>
 
               <li class="nav-item"><a href="{{url('/invoiceIndex')}}" class="nav-link">invoice</a></li>
               <button class="btn btn-secondary mr-3 pull-right" style="float: right;" ><a href="{{route('cart')}}">Cart({{ count((array) session('cart')) }})</a></button>

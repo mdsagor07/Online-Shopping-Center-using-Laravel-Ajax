@@ -1,16 +1,13 @@
 @extends('products.layout')
-
 @section('content')
-
-
-
+    
 
 <div class="row">
   <div class="col-md-8 offset-2">
       <div class="card">
           <div class="card-header bg-info">
                   <h2 class="text-center">
-                      Customer Orders
+                    Purchase
                   </h2>
           </div>
           <div class="card-body">
@@ -19,24 +16,28 @@
                 <tr>
                   <th scope="col">serial</th>
                   <th scope="col">order no</th>
-                  <th scope="col">customer name</th>
-                  <th scope="col">customer phone</th>
+                  <th scope="col">Supplier name</th>
+                  <th scope="col">Supplier phone</th>
           
           
                   <th scope="col">subtotal</th>
                 </tr>
               </thead>
               <tbody>
-                  @foreach (App\Models\order_info::all(); as $id=> $orders)
+                  @foreach (App\Models\SupplierOrderInfo::all(); as $id=> $orders)
                 <tr>
                   <th scope="row">{{ $id+1 }}</th>
                   <td>{{ $orders->order_id }}
-                  <a href={{ route('summary',$orders->order_id) }}> details</a>
+                  <a href={{ route('supplierordersummary',$orders->order_id) }}> details</a>
                   </td>
-                  <td>{{ $orders->user->name }}</td>
-                  <td>{{ $orders->user->phone }}</td>
+                  <td>{{ $orders->supplier->name }}</td>
+                  <td>{{ $orders->supplier->phone }}</td>
           
-                  <td>{{ $orders->order_value }}</td>
+                  @php 
+                  $value = App\Models\SupplierOrder::where('order_id',$orders->order_id)->sum('subtotal');
+                  @endphp
+          
+                  <td>{{ $value}}</td>
                 </tr>
                 @endforeach
                
@@ -45,7 +46,6 @@
       </div>
   </div>
 </div>
-
 
 
 

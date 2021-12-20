@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,22 @@ Route::post('users', [InvoiceController::class, 'getusers'])->name('users');
 
 Route::post('search', [InvoiceController::class, 'search'])->name('search');
 Route::get('summary/{order_id}', [InvoiceController::class, 'ordersummary'])->name('summary');
+// supplier route
+
+Route::get('/supplier/index', [SupplierController::class, 'index'])->name('index');
+Route::post('/supplier/store', [SupplierController::class, 'addsupplier'])->name('supplier.add');
+Route::get('/supplier/order', [SupplierController::class, 'orderIndex'])->name('supplier.order');
+
+Route::post('/supplier/order/create', [SupplierController::class, 'createsupplierOrder'])->name('supplier.order.create');
+
+Route::get('/supplier/order_details', [SupplierController::class, 'supplierorderdetails'])->name('supplier.order_details');
+
+Route::get('supplier/summary/{order_id}', [SupplierController::class, 'supplierordersummary'])->name('supplierordersummary');
+
+Route::get('/supplier/stock', [SupplierController::class, 'stockProduct'])->name('stock');
+
+
+
 
 
 
