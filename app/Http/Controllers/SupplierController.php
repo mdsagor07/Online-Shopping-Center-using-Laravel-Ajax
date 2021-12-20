@@ -111,9 +111,9 @@ class SupplierController extends Controller
         foreach ($saveRecord as $saveRecords) {
             $product = SupplierStock::where('product_id',$saveRecords['product_id'])->first();
             $stock=$product->stock;
-            $i=0;
+           
 
-            if($saveRecords['qty'] < $stock && $saveRecords['qty'] >i ){
+            if($saveRecords['qty'] < $stock && $saveRecords['qty'] >0 ){
 
                 $order_info->save();
                 SupplierOrder::insert($saveRecords);
@@ -124,7 +124,7 @@ class SupplierController extends Controller
                 $product_name_get= $product_name->name;
                
                // $request->session()->flash('flash_message', $product_name_get.' stock is shortage please enter <='.$stock);
-               return redirect()->back()->with('message','order placed without'. $product_name_get.' product  is Shortage Storage!, Minimum Enter quantity is'.$stock);
+               return redirect()->back()->with('message','order placed without'. $product_name_get.' product  is Shortage Storage!, Enter Maximum  quantity is'.$stock);
             }
            
         }
