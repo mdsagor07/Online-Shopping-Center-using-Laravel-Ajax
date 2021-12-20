@@ -1,2 +1,5 @@
-# YajraDataTable
- yajra data table implementation for customers details
+# Online shopping center
+#ajax
+#laravel 8
+
+ 
